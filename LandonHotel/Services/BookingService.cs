@@ -1,11 +1,15 @@
 ﻿using LandonHotel.Data;
+using LandonHotel.Repositories;
 
 namespace LandonHotel.Services
 {
     public class BookingService : IBookingService
     {
-        public BookingService()
+        private readonly IRoomsRepository _roomRepo;
+
+        public BookingService(IRoomsRepository roomRepo)
         {
+            _roomRepo = roomRepo;
         }
 
         public int CalculateBookingCost(int roomId, Booking booking)
