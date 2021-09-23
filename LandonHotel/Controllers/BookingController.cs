@@ -25,7 +25,7 @@ namespace LandonHotel.Controllers
                 CheckInDate = DateTime.Now,
                 CheckOutDate = DateTime.Now.AddDays(1),
                 Rooms = roomService.GetAllRooms(),
-                NumberOfGuests = 1
+                //NumberOfGuests = 1
             };
             return View(model);
         }
@@ -33,25 +33,37 @@ namespace LandonHotel.Controllers
         [HttpPost]
         public IActionResult Index(BookingViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)//needed the ! otherwise it was always going through as not valid
             {
-                var booking = new Booking()
-                {
-                    CheckInDate = model.CheckInDate,
-                    CheckOutDate = model.CheckOutDate,
-                    HasPets = model.BringingPets,
-                    IsSmoking = model.IsSmoking,
-                };
+                model.Rooms = roomService.GetAllRooms();
+                ViewBag.ErrorMessage = "Booking was not valid";
 
-                if (bookingService.IsBookingValid(model.RoomId, booking))
-                {
-                return View("Success");
-                }
+                return View("Index", model);
+               
+                //if (bookingService.IsBookingValid(model.RoomId, booking))
+               // {
+                //return View("Success");
+               // }
             }
-            model.Rooms = roomService.GetAllRooms();
-            ViewBag.ErrorMessage = "Booking was not valid";
 
-            return View("Index", model);
+            var booking = new Booking()
+            {
+                CheckInDate = model.CheckInDate,
+                CheckOutDate = model.CheckOutDate,
+                RoomId = model.RoomId,
+                CouponCode = model.CouponCode//this made the test work
+                //HasPets = model.BringingPets,
+                // IsSmoking = model.IsSmoking,
+            };
+            //model.Rooms = roomService.GetAllRooms();
+            //ViewBag.ErrorMessage = "Booking was not valid";
+
+            //return View("Index", model);
+            return View("Success",
+                new BookingSuccessViewModel
+                {
+                    Price = bookingService.CalculateBookingPrice(booking)
+                });
         }
     }
 }

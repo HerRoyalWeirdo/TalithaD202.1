@@ -4,6 +4,7 @@ namespace LandonHotel.Services
 {
     public interface IBookingService
     {
-        bool IsBookingValid(int roomId, Booking booking);
+        //bool IsBookingValid(int roomId, Booking booking);
+        decimal CalculateBookingPrice(Booking booking);
     }
 }

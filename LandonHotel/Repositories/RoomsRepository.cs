@@ -11,17 +11,25 @@ namespace LandonHotel.Repositories
         {
             new Room
             {
+                Id = 1,
                 Name = "Winchester",
-                ArePetsAllowed = true,
-                Capacity = 5,
+                //ArePetsAllowed = true,
+                //Capacity = 5,
                 Rate = 200
             },
             new Room
             {
+                Id=2,
                 Name = "Piccadilly",
-                ArePetsAllowed = false,
-                Capacity = 3,
+                //ArePetsAllowed = false,
+                //Capacity = 3,
                 Rate = 250
+            },
+            new Room
+            {
+                Id=3,
+                Name = "Luxemburg",
+                Rate = 300
             }
         };
 
