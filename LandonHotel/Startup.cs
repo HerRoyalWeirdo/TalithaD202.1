@@ -27,6 +27,7 @@ namespace LandonHotel
 
             //register class in transient scope
             services.AddTransient<IRoomsRepository, RoomsRepository>();
+            services.AddTransient<IBookingsRepository, BookingsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
